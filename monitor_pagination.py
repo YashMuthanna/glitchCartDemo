@@ -3,42 +3,43 @@ import requests
 import sys
 import time
 
-def check_fakeoutofstock_status():
+def test_pagination(page=2):
     """
-    Check if the fakeOutOfStock fault is enabled
-    Returns True if fault is enabled, False if disabled
+    Test the pagination functionality
+    Returns True if successful (200 status code), False otherwise
     """
-    url = "https://glitch-cart-demo.vercel.app/api/faults"
-    
+    url = "https://glitch-cart-demo.vercel.app/api/products"
+    params = {"page": page}
+
     try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            faults = response.json()
-            return faults.get('fakeOutOfStock', False)
-        return False
+        response = requests.get(url, params=params)
+        if response.status_code == 503 and response.json().get("code") == "PAGINATION_JAMMED":
+            print("❌ Pagination is jammed - Service degraded")
+            return False
+        return response.status_code == 200
     except requests.RequestException:
         return False
 
-def monitor_stock(max_retries=1):
+def monitor_pagination(max_retries=1):
     """
-    Monitor the stock fault status
+    Monitor the pagination functionality
     Args:
         max_retries: Number of times to retry before exiting with failure
     Returns:
-        True if fault is not enabled (healthy state), False if fault is enabled
+        True if all checks pass, False if any check fails
     """
-    print("🔍 Starting Stock Fault Monitoring")
+    print("🔍 Starting Pagination Monitoring")
     print(f"Will exit on failure after {max_retries} {'retry' if max_retries == 1 else 'retries'}")
     print("-" * 50)
 
     try:
         retry_count = 0
         while retry_count < max_retries:
-            if not check_fakeoutofstock_status():
-                print("✅ Stock system healthy - fakeOutOfStock fault is disabled")
+            if test_pagination():
+                print("✅ Pagination system healthy - Page 2 accessible")
                 return True
                 
-            print("❌ Stock fault detected - fakeOutOfStock is enabled")
+            print("❌ Pagination fault detected - Cannot access page 2")
             retry_count += 1
             
             if retry_count < max_retries:
@@ -52,5 +53,5 @@ def monitor_stock(max_retries=1):
         return False
 
 if __name__ == "__main__":
-    success = monitor_stock(max_retries=1)
+    success = monitor_pagination(max_retries=1)
     sys.exit(0 if success else 1) 

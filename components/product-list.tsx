@@ -69,11 +69,11 @@ export default function ProductList({
             className="group relative overflow-hidden rounded-lg border bg-white"
           >
             <Link href={`/products/${product.id}`} className="block">
-              <div className="aspect-h-1 aspect-w-1 relative w-full overflow-hidden bg-neutral-100">
+              <div className="relative aspect-square w-full overflow-hidden bg-neutral-100">
                 <Image
                   src={product.imageUrl || "/placeholder.svg"}
                   alt={product.name}
-                  className="object-cover transition-all duration-300 group-hover:scale-105"
+                  className="object-cover"
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   priority={false}

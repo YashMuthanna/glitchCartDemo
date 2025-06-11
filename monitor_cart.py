@@ -8,7 +8,7 @@ def test_add_to_cart(product_id="2", quantity=1):
     Test the add to cart functionality
     Returns True if successful (200 status code), False otherwise
     """
-    url = "http://localhost:3130/api/cart"
+    url = "https://glitch-cart-demo.vercel.app/api/cart"
     payload = {
         "productId": product_id,
         "quantity": quantity
