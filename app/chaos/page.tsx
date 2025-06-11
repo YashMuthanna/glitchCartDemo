@@ -25,7 +25,13 @@ export default function ChaosPage() {
     const fetchFaultStates = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("/api/faults");
+        const response = await fetch("/api/faults", {
+          cache: "no-store",
+          headers: {
+            Pragma: "no-cache",
+            "Cache-Control": "no-cache",
+          },
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch fault states");
         }
