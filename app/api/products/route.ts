@@ -10,7 +10,27 @@ export async function GET(request: Request) {
     // Check if jamPagination fault is enabled
     const isJammed = await isFaultEnabled("jamPagination");
     if (isJammed) {
-      page = 1; // Force page 1 if jamPagination is enabled
+      // Return a 503 Service Unavailable with a clear error message
+      return NextResponse.json(
+        {
+          error: "Pagination service degraded",
+          code: "PAGINATION_JAMMED",
+          requestedPage: page,
+          message:
+            "The pagination service is currently experiencing issues. All requests will default to page 1.",
+          products: (await getProducts(1)).products, // Always get page 1
+          totalPages: 1, // Force single page view when jammed
+          currentPage: 1,
+          isJammed: true,
+        },
+        {
+          status: 503,
+          headers: {
+            "Retry-After": "300", // Suggest retry after 5 minutes
+            "X-Error-Code": "PAGINATION_JAMMED",
+          },
+        }
+      );
     }
 
     const { products, totalPages } = await getProducts(page);
@@ -18,7 +38,8 @@ export async function GET(request: Request) {
     return NextResponse.json({
       products,
       totalPages,
-      currentPage: isJammed ? 1 : page,
+      currentPage: page,
+      isJammed: false,
     });
   } catch (error) {
     console.error("Failed to fetch products:", error);

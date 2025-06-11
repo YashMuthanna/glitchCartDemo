@@ -22,19 +22,27 @@ export default function ProductList({
   totalPages,
 }: ProductListProps) {
   const [error, setError] = useState<string | null>(null);
+  const [isJammed, setIsJammed] = useState(false);
 
   const handlePageChange = async (page: number) => {
     try {
       const response = await fetch(`/api/products?page=${page}`);
       const data = await response.json();
 
+      if (response.status === 503 && data.code === "PAGINATION_JAMMED") {
+        setIsJammed(true);
+        setError("Pagination service is degraded. Showing page 1 only.");
+        // Don't update URL when jammed
+        return;
+      }
+
       if (!response.ok) {
         setError(data.message || "Failed to load page");
-        // Don't update the URL if there's an error
         return;
       }
 
       setError(null);
+      setIsJammed(false);
       // Update the URL with the new page number
       window.history.pushState({}, "", `?page=${page}`);
       // Reload the page to reflect the new data
@@ -47,9 +55,9 @@ export default function ProductList({
   return (
     <div className="space-y-8">
       {error && (
-        <Alert variant="destructive">
+        <Alert variant={isJammed ? "default" : "destructive"}>
           <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
+          <AlertTitle>{isJammed ? "Service Degraded" : "Error"}</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
@@ -94,27 +102,29 @@ export default function ProductList({
         ))}
       </div>
 
-      <div className="flex items-center justify-center gap-2">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage <= 1}
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
-        <span className="text-sm">
-          Page {currentPage} of {totalPages}
-        </span>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage >= totalPages}
-        >
-          <ChevronRight className="h-4 w-4" />
-        </Button>
-      </div>
+      {!isJammed && (
+        <div className="flex items-center justify-center gap-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage <= 1}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <span className="text-sm">
+            Page {currentPage} of {totalPages}
+          </span>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage >= totalPages}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
