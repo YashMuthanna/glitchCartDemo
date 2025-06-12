@@ -6,6 +6,7 @@ import { formatCurrency } from "@/lib/utils";
 import AddToCartButton from "@/components/add-to-cart-button";
 import type { Product } from "@/types";
 import { Plus, Minus, Package } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface ProductDetailProps {
   product: Product;
@@ -27,10 +28,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white to-blue-50/50 py-8 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-[calc(100vh-4rem)] bg-background">
+      <div className="max-w-7xl mx-auto px-4 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-12">
-          <div className="aspect-square relative bg-white rounded-2xl overflow-hidden shadow-lg border-2 border-neutral-200/50">
+          <div className="relative aspect-square glass-effect rounded-xl border-2 border-purple-500/20 overflow-hidden">
             <Image
               src={product.imageUrl || "/placeholder.svg"}
               alt={product.name}
@@ -43,62 +44,70 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
           <div className="space-y-8">
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-blue-100 text-blue-600">
-                  <Package className="h-5 w-5" />
+              <div className="flex items-center gap-4">
+                <div className="p-3 rounded-2xl glass-effect text-purple-400">
+                  <Package className="h-6 w-6" />
                 </div>
-                <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+                <h1 className="text-4xl font-bold tracking-tight text-gradient">
                   {product.name}
                 </h1>
               </div>
-              <p className="text-3xl font-medium text-neutral-900">
+              <p className="text-3xl font-medium text-gradient">
                 {formatCurrency(product.price)}
               </p>
             </div>
 
-            <div className="prose prose-neutral max-w-none">
-              <p className="text-lg text-neutral-600 leading-relaxed">
+            <div className="prose prose-invert max-w-none">
+              <p className="text-lg text-muted-foreground leading-relaxed">
                 {product.description}
               </p>
             </div>
 
             <div className="pt-2">
-              <div className="flex items-center justify-between p-4 rounded-lg bg-neutral-50 border border-neutral-200">
-                <span className="text-sm font-medium text-neutral-700">
-                  Availability
-                </span>
-                <span
-                  className={`text-sm font-medium ${
-                    product.stock > 0 ? "text-green-600" : "text-red-600"
-                  }`}
-                >
-                  {product.stock > 0
-                    ? `${product.stock} in stock`
-                    : "Out of stock"}
-                </span>
+              <div className="glass-effect rounded-xl border-2 border-purple-500/20 p-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-foreground font-medium">
+                    Availability
+                  </span>
+                  <span
+                    className={`font-medium ${
+                      product.stock > 0
+                        ? "text-emerald-400"
+                        : "text-destructive"
+                    }`}
+                  >
+                    {product.stock > 0
+                      ? `${product.stock} in stock`
+                      : "Out of stock"}
+                  </span>
+                </div>
               </div>
             </div>
 
             {product.stock > 0 && (
               <div className="space-y-6">
-                <div className="flex items-center">
-                  <button
+                <div className="flex items-center gap-2">
+                  <Button
                     onClick={decrementQuantity}
                     disabled={quantity <= 1}
-                    className="w-12 h-12 flex items-center justify-center rounded-l-lg border-2 border-r-0 border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50 disabled:opacity-50 disabled:hover:bg-white transition-colors"
+                    variant="outline"
+                    size="icon"
+                    className="glass-effect hover:bg-muted"
                   >
                     <Minus className="h-4 w-4" />
-                  </button>
-                  <div className="w-20 h-12 flex items-center justify-center border-y-2 border-neutral-200 bg-white text-lg font-medium text-neutral-900">
+                  </Button>
+                  <div className="w-20 h-12 flex items-center justify-center glass-effect rounded-lg border-2 border-purple-500/20 text-lg font-medium text-foreground">
                     {quantity}
                   </div>
-                  <button
+                  <Button
                     onClick={incrementQuantity}
                     disabled={quantity >= product.stock}
-                    className="w-12 h-12 flex items-center justify-center rounded-r-lg border-2 border-l-0 border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50 disabled:opacity-50 disabled:hover:bg-white transition-colors"
+                    variant="outline"
+                    size="icon"
+                    className="glass-effect hover:bg-muted"
                   >
                     <Plus className="h-4 w-4" />
-                  </button>
+                  </Button>
                 </div>
 
                 <AddToCartButton product={product} quantity={quantity} />

@@ -69,9 +69,10 @@ export default function AddToCartButton({
     <Button
       onClick={handleAddToCart}
       disabled={isLoading || product.stock === 0}
-      className="w-full"
+      className="w-full glass-effect hover:bg-primary/20"
+      size="lg"
     >
-      <ShoppingCart className="mr-2 h-4 w-4" />
+      <ShoppingCart className="mr-2 h-5 w-5" />
       {isLoading ? "Adding..." : "Add to Cart"}
     </Button>
   );

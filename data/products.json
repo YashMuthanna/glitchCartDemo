@@ -5,7 +5,7 @@
     "description": "A sleek, adjustable desk lamp with touch controls and multiple brightness settings. Perfect for your home office or reading nook.",
     "price": 49.99,
     "stock": 15,
-    "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "2",
@@ -13,7 +13,7 @@
     "description": "Premium wireless earbuds with noise cancellation, water resistance, and 8-hour battery life. Includes compact charging case.",
     "price": 129.99,
     "stock": 8,
-    "imageUrl": "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "3",
@@ -21,7 +21,7 @@
     "description": "Elegant timepiece with a clean dial, premium leather strap, and Japanese quartz movement. Water-resistant to 30 meters.",
     "price": 89.99,
     "stock": 12,
-    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "4",
@@ -29,7 +29,7 @@
     "description": "Hand-crafted ceramic pot with drainage hole and saucer. Available in matte finish with subtle texture. Perfect for indoor plants.",
     "price": 24.99,
     "stock": 20,
-    "imageUrl": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1592170577795-db1ab2009688?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "5",
@@ -37,47 +37,47 @@
     "description": "Compact speaker with powerful sound, 12-hour battery life, and water resistance. Connects easily to all your devices.",
     "price": 59.99,
     "stock": 10,
-    "imageUrl": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1589256469067-ea99122bbdc4?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "6",
-    "name": "Leather Notebook",
-    "description": "Premium leather-bound notebook with 192 pages of acid-free paper. Includes bookmark ribbon and elastic closure.",
-    "price": 19.99,
+    "name": "Bamboo Cutting Board",
+    "description": "Premium bamboo cutting board with juice groove and non-slip feet. Perfect for food prep and serving.",
+    "price": 34.99,
     "stock": 25,
-    "imageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1584589167171-541ce45f1eea?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "7",
-    "name": "Smart Water Bottle",
-    "description": "Insulated water bottle with LED temperature display and hydration tracking. Keeps drinks cold for 24 hours or hot for 12 hours.",
-    "price": 34.99,
-    "stock": 18,
-    "imageUrl": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=400&fit=crop&crop=center"
+    "name": "Lounge Chair",
+    "description": "Modern lounge chair with premium upholstery and ergonomic design. Perfect for reading or relaxing in style.",
+    "price": 299.99,
+    "stock": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "8",
-    "name": "Wool Throw Blanket",
-    "description": "Soft, lightweight throw blanket made from 100% merino wool. Perfect for adding warmth and texture to any room.",
-    "price": 79.99,
-    "stock": 7,
-    "imageUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop&crop=center"
+    "name": "Stainless Steel Water Bottle",
+    "description": "Double-walled insulated water bottle that keeps drinks cold for 24 hours or hot for 12 hours. Leak-proof and durable.",
+    "price": 29.99,
+    "stock": 30,
+    "imageUrl": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "9",
-    "name": "Stainless Steel Water Bottle",
-    "description": "Double-walled, vacuum-insulated water bottle that keeps beverages cold for 24 hours or hot for 12 hours. BPA-free and leak-proof.",
-    "price": 29.99,
-    "stock": 22,
-    "imageUrl": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop&crop=center"
+    "name": "Smart Coffee Maker",
+    "description": "WiFi-enabled coffee maker with programmable brewing schedule and temperature control. Control from your smartphone.",
+    "price": 149.99,
+    "stock": 7,
+    "imageUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "10",
-    "name": "Bamboo Cutting Board",
-    "description": "Sustainable bamboo cutting board with juice groove and handles. Naturally antibacterial and gentle on knives.",
+    "name": "Leather Wallet",
+    "description": "Handcrafted leather wallet with RFID blocking technology. Features multiple card slots and a coin pocket.",
     "price": 39.99,
-    "stock": 14,
-    "imageUrl": "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&h=400&fit=crop&crop=center"
+    "stock": 18,
+    "imageUrl": "https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "11",
@@ -85,7 +85,7 @@
     "description": "Set of three hand-poured soy wax candles in amber glass jars. Fragrances include Sandalwood, Vanilla, and Cedar.",
     "price": 44.99,
     "stock": 9,
-    "imageUrl": "https://images.unsplash.com/photo-1602874801006-2bd9c2f3c9a4?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "12",
@@ -93,7 +93,7 @@
     "description": "Slim, fast-charging wireless pad compatible with all Qi-enabled devices. Features LED indicator and non-slip surface.",
     "price": 32.99,
     "stock": 16,
-    "imageUrl": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1615526675741-99b1af14ed61?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "13",
@@ -101,7 +101,7 @@
     "description": "Soft, decorative pillow with removable cover made from 100% organic cotton. Available in neutral tones to complement any decor.",
     "price": 27.99,
     "stock": 19,
-    "imageUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "14",
@@ -109,7 +109,7 @@
     "description": "Double-walled glass tea infuser with removable stainless steel filter. Perfect for loose leaf tea and herbal infusions.",
     "price": 22.99,
     "stock": 11,
-    "imageUrl": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1563822249366-3efb23b8e0c9?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "15",
@@ -117,47 +117,47 @@
     "description": "Handcrafted desk organizer with multiple compartments for stationery, devices, and accessories. Made from sustainable bamboo.",
     "price": 42.99,
     "stock": 13,
-    "imageUrl": "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1591129841117-3adfd313e34f?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "16",
-    "name": "Linen Napkin Set",
-    "description": "Set of four stonewashed linen napkins with mitered corners. Soft, absorbent, and becomes more beautiful with each wash.",
-    "price": 36.99,
-    "stock": 17,
-    "imageUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop&crop=center"
+    "name": "Yoga Mat",
+    "description": "Premium non-slip yoga mat with alignment lines. Made from eco-friendly materials with extra cushioning.",
+    "price": 49.99,
+    "stock": 22,
+    "imageUrl": "https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "17",
-    "name": "Coffee Mug Set",
-    "description": "Set of two ceramic coffee mugs with ergonomic handles. Microwave and dishwasher safe. Perfect for your morning routine.",
-    "price": 28.99,
-    "stock": 24,
-    "imageUrl": "https://images.unsplash.com/photo-1514228742587-6b1558fcf93a?w=400&h=400&fit=crop&crop=center"
+    "name": "Air Plant Holder",
+    "description": "Geometric brass air plant holder with chain for hanging. Modern design perfect for displaying tillandsia.",
+    "price": 19.99,
+    "stock": 15,
+    "imageUrl": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "18",
-    "name": "Yoga Mat",
-    "description": "Non-slip yoga mat made from eco-friendly TPE material. Provides excellent cushioning and grip for all types of yoga practice.",
-    "price": 45.99,
-    "stock": 12,
-    "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop&crop=center"
+    "name": "Copper Moscow Mule Mugs",
+    "description": "Set of four handcrafted copper Moscow Mule mugs. Pure copper with food-safe lining and brass handles.",
+    "price": 64.99,
+    "stock": 8,
+    "imageUrl": "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "19",
-    "name": "Reading Glasses",
-    "description": "Stylish reading glasses with anti-blue light coating. Lightweight frame with spring hinges for comfortable all-day wear.",
-    "price": 35.99,
-    "stock": 15,
-    "imageUrl": "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=400&h=400&fit=crop&crop=center"
+    "name": "Smart LED Light Bulbs",
+    "description": "Set of two WiFi-enabled LED bulbs. Control colors and brightness from your phone, compatible with voice assistants.",
+    "price": 34.99,
+    "stock": 25,
+    "imageUrl": "https://images.unsplash.com/photo-1563461661026-49631dd5d68e?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "20",
-    "name": "Kitchen Scale",
-    "description": "Digital kitchen scale with precision weighing up to 11 lbs. Features tare function and easy-to-read LCD display.",
-    "price": 38.99,
-    "stock": 18,
-    "imageUrl": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=400&fit=crop&crop=center"
+    "name": "Marble Coasters",
+    "description": "Set of four natural marble coasters with cork backing. Each piece unique with protective felt pads.",
+    "price": 29.99,
+    "stock": 17,
+    "imageUrl": "https://images.unsplash.com/photo-1583845112239-290938c0ec89?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "21",
@@ -165,7 +165,7 @@
     "description": "Compact USB desk fan with adjustable speed settings. Quiet operation and 360-degree rotation for optimal airflow.",
     "price": 26.99,
     "stock": 21,
-    "imageUrl": "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1576679442865-a8aae3c4c297?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "22",
@@ -173,7 +173,7 @@
     "description": "Adjustable phone stand made from aluminum alloy. Compatible with all smartphone sizes and provides stable viewing angles.",
     "price": 18.99,
     "stock": 30,
-    "imageUrl": "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "23",
@@ -181,7 +181,7 @@
     "description": "Ultrasonic essential oil diffuser with LED mood lighting. Runs for up to 8 hours and covers rooms up to 300 sq ft.",
     "price": 52.99,
     "stock": 14,
-    "imageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&h=400&fit=crop&crop=center"
   },
   {
     "id": "24",
@@ -189,6 +189,6 @@
     "description": "Durable travel backpack with multiple compartments and laptop sleeve. Water-resistant material with comfortable padded straps.",
     "price": 89.99,
     "stock": 8,
-    "imageUrl": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop&crop=center"
+    "imageUrl": "https://images.unsplash.com/photo-1622560480654-d96214fdc887?w=400&h=400&fit=crop&crop=center"
   }
 ]

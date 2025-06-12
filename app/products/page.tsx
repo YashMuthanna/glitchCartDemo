@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import ProductList from "@/components/product-list";
 import { getProducts } from "@/lib/products";
-import { Package } from "lucide-react";
+import { Package, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Products | E-commerce Demo",
+  title: "Products | GlitchCart",
   description: "Browse our complete product catalog",
 };
 
@@ -17,27 +17,38 @@ export default async function ProductsPage({
   const { products, totalPages } = await getProducts(page);
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white to-blue-50/50 py-8 px-4">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <div className="text-center space-y-4">
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <div className="p-2 rounded-lg bg-blue-100 text-blue-600">
-              <Package className="h-6 w-6" />
+    <div className="min-h-[calc(100vh-4rem)] bg-background">
+      <div className="max-w-7xl mx-auto px-4 py-16 md:py-24">
+        <div className="text-center space-y-8 mb-16">
+          <div className="flex items-center justify-center gap-4 animate-float">
+            <div className="p-3 rounded-2xl glass-effect text-purple-400">
+              <Package className="h-8 w-8" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
-              All Products
-            </h1>
+            <div className="p-3 rounded-2xl glass-effect text-violet-400">
+              <Sparkles className="h-8 w-8" />
+            </div>
           </div>
-          <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Browse our complete product catalog
-          </p>
+
+          <div className="space-y-4">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gradient leading-tight md:leading-tight pb-2">
+              Discover Amazing Products
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed pb-2">
+              Explore our curated collection of unique items
+            </p>
+          </div>
         </div>
 
-        <ProductList
-          products={products}
-          currentPage={page}
-          totalPages={totalPages}
-        />
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-violet-500/5 rounded-3xl -m-4 blur-3xl"></div>
+          <div className="relative">
+            <ProductList
+              products={products}
+              currentPage={page}
+              totalPages={totalPages}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

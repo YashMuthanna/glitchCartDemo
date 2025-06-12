@@ -55,7 +55,7 @@ export default function ProductList({
   return (
     <div className="space-y-8">
       {error && (
-        <Alert variant={isJammed ? "default" : "destructive"}>
+        <Alert variant={isJammed ? "service" : "destructive"}>
           <AlertTriangle className="h-4 w-4" />
           <AlertTitle>{isJammed ? "Service Degraded" : "Error"}</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
@@ -66,31 +66,37 @@ export default function ProductList({
         {products.map((product) => (
           <div
             key={product.id}
-            className="group relative overflow-hidden rounded-lg border bg-white"
+            className="group relative overflow-hidden rounded-xl glass-effect border-2 border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
           >
             <Link href={`/products/${product.id}`} className="block">
-              <div className="relative aspect-square w-full overflow-hidden bg-neutral-100">
+              <div className="relative aspect-square w-full overflow-hidden bg-background/50">
                 <Image
                   src={product.imageUrl || "/placeholder.svg"}
                   alt={product.name}
-                  className="object-cover"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   priority={false}
                 />
               </div>
-              <div className="p-4">
-                <h3 className="font-medium text-neutral-900 group-hover:text-neutral-600 transition-colors">
+              <div className="p-6">
+                <h3 className="font-medium text-lg text-foreground group-hover:text-primary transition-colors">
                   {product.name}
                 </h3>
-                <p className="mt-1 text-neutral-500 text-sm line-clamp-2">
+                <p className="mt-2 text-muted-foreground text-sm line-clamp-2">
                   {product.description}
                 </p>
-                <div className="mt-2 flex items-center justify-between">
-                  <span className="font-medium text-neutral-900">
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="text-lg font-medium text-gradient">
                     {formatCurrency(product.price)}
                   </span>
-                  <span className="text-sm text-neutral-500">
+                  <span
+                    className={`text-sm ${
+                      product.stock > 0
+                        ? "text-emerald-400"
+                        : "text-destructive"
+                    }`}
+                  >
                     {product.stock > 0
                       ? `${product.stock} in stock`
                       : "Out of stock"}
@@ -109,10 +115,11 @@ export default function ProductList({
             size="icon"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage <= 1}
+            className="glass-effect hover:bg-muted"
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <span className="text-sm">
+          <span className="text-sm text-muted-foreground">
             Page {currentPage} of {totalPages}
           </span>
           <Button
@@ -120,6 +127,7 @@ export default function ProductList({
             size="icon"
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage >= totalPages}
+            className="glass-effect hover:bg-muted"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>

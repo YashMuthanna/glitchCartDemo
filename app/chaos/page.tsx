@@ -57,76 +57,68 @@ export default function ChaosPage() {
     try {
       const response = await fetch(
         `/api/faults/${faultName}/${enabled ? "enable" : "disable"}`,
-        {
-          method: "POST",
-        }
+        { method: "POST" }
       );
-
-      if (!response.ok) {
-        throw new Error(`Failed to ${enabled ? "enable" : "disable"} fault`);
-      }
-
+      if (!response.ok) throw new Error("Failed to toggle fault");
       const data = await response.json();
       setFaults(data.faults);
     } catch (error) {
       console.error("Failed to toggle fault:", error);
-      setError(
-        error instanceof Error ? error.message : "Failed to toggle fault"
-      );
     }
   };
 
-  if (error) {
-    return (
-      <div className="p-4">
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center gap-2">
-          <AlertTriangle className="h-5 w-5" />
-          Error: {error}
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white to-blue-50/50 py-8 px-4">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
-            Chaos Engineering Dashboard
-          </h1>
-          <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Toggle fault flags to simulate various error scenarios in the
-            application
-          </p>
+    <div className="min-h-[calc(100vh-4rem)] bg-background">
+      <div className="max-w-7xl mx-auto px-4 py-16 md:py-24">
+        <div className="text-center space-y-8 mb-16">
+          <div className="flex items-center justify-center gap-4 animate-float">
+            <div className="p-3 rounded-2xl glass-effect text-purple-400">
+              <ZapOff className="h-8 w-8" />
+            </div>
+          </div>
+          <div className="space-y-4">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gradient leading-tight md:leading-tight pb-2">
+              Chaos Engineering Dashboard
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed pb-2">
+              Toggle fault flags to simulate various error scenarios in the
+              application
+            </p>
+          </div>
         </div>
 
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        {error ? (
+          <div className="rounded-lg border border-destructive/50 p-4 bg-destructive/10 text-center">
+            <AlertTriangle className="h-6 w-6 text-destructive mx-auto mb-2" />
+            <p className="text-sm text-destructive">{error}</p>
+          </div>
+        ) : isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(3)].map((_, i) => (
-              <Card key={i} className="border-2 border-neutral-200/50">
+              <Card
+                key={i}
+                className="glass-effect border-2 border-purple-500/20"
+              >
                 <CardHeader>
-                  <div className="h-6 bg-neutral-200 rounded-lg animate-pulse mb-2 w-2/3"></div>
-                  <div className="h-4 bg-neutral-100 rounded-lg animate-pulse w-full"></div>
+                  <div className="h-6 bg-muted rounded-lg animate-pulse mb-2 w-2/3"></div>
+                  <div className="h-4 bg-muted/50 rounded-lg animate-pulse w-full"></div>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-8 bg-neutral-100 rounded-lg animate-pulse w-1/3"></div>
+                  <div className="h-8 bg-muted/50 rounded-lg animate-pulse w-1/3"></div>
                 </CardContent>
               </Card>
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-            <Card className="group border-2 border-transparent hover:border-blue-500/50 transition-all duration-300 shadow-lg">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="glass-effect border-2 border-purple-500/20">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <div className="p-2 rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                    <ShoppingCart className="h-5 w-5" />
-                  </div>
-                  <CardTitle>Disable Add to Cart</CardTitle>
+                  <ShoppingCart className="h-5 w-5 text-purple-400" />
+                  <CardTitle>Add to Cart</CardTitle>
                 </div>
-                <CardDescription className="text-neutral-600 mt-2">
-                  When enabled, all attempts to add items to cart will fail with
-                  a 500 error
+                <CardDescription>
+                  Disable the ability to add items to cart
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -140,17 +132,14 @@ export default function ChaosPage() {
               </CardContent>
             </Card>
 
-            <Card className="group border-2 border-transparent hover:border-purple-500/50 transition-all duration-300 shadow-lg">
+            <Card className="glass-effect border-2 border-purple-500/20">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <div className="p-2 rounded-lg bg-purple-100 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors">
-                    <Layers className="h-5 w-5" />
-                  </div>
-                  <CardTitle>Jam Pagination</CardTitle>
+                  <Layers className="h-5 w-5 text-violet-400" />
+                  <CardTitle>Pagination</CardTitle>
                 </div>
-                <CardDescription className="text-neutral-600 mt-2">
-                  When enabled, product listing will always show page 1
-                  regardless of requested page
+                <CardDescription>
+                  Force all pagination requests to return page 1
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -162,17 +151,14 @@ export default function ChaosPage() {
               </CardContent>
             </Card>
 
-            <Card className="group border-2 border-transparent hover:border-indigo-500/50 transition-all duration-300 shadow-lg">
+            <Card className="glass-effect border-2 border-purple-500/20">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <div className="p-2 rounded-lg bg-indigo-100 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                    <ZapOff className="h-5 w-5" />
-                  </div>
-                  <CardTitle>Fake Out of Stock</CardTitle>
+                  <AlertTriangle className="h-5 w-5 text-purple-400" />
+                  <CardTitle>Stock Status</CardTitle>
                 </div>
-                <CardDescription className="text-neutral-600 mt-2">
-                  When enabled, all products will appear as out of stock (0
-                  quantity)
+                <CardDescription>
+                  Mark all products as out of stock
                 </CardDescription>
               </CardHeader>
               <CardContent>
