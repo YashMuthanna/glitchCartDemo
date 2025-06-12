@@ -10,7 +10,38 @@ import {
 } from "@/components/ui/card";
 import FaultToggle from "@/components/fault-toggle";
 import type { FaultName, FaultStatus } from "@/lib/faults";
-import { AlertTriangle, ZapOff, ShoppingCart, Layers } from "lucide-react";
+import {
+  AlertTriangle,
+  ZapOff,
+  ShoppingCart,
+  Layers,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+interface GlitchDetails {
+  repairUrl: string;
+  curlCommand: string;
+}
+
+const glitchDetails: Record<FaultName, GlitchDetails> = {
+  disableAddToCart: {
+    repairUrl: "/api/faults/disableAddToCart/disable",
+    curlCommand:
+      "curl -X POST https://glitch-cart-demo.vercel.app/api/faults/disableAddToCart/disable",
+  },
+  jamPagination: {
+    repairUrl: "/api/faults/jamPagination/disable",
+    curlCommand:
+      "curl -X POST https://glitch-cart-demo.vercel.app/api/faults/jamPagination/disable",
+  },
+  fakeOutOfStock: {
+    repairUrl: "/api/faults/fakeOutOfStock/disable",
+    curlCommand:
+      "curl -X POST https://glitch-cart-demo.vercel.app/api/faults/fakeOutOfStock/disable",
+  },
+};
 
 export default function ChaosPage() {
   const [faults, setFaults] = useState<FaultStatus>({
@@ -20,6 +51,9 @@ export default function ChaosPage() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>(
+    {}
+  );
 
   useEffect(() => {
     // Fetch current fault states on component mount
@@ -65,6 +99,13 @@ export default function ChaosPage() {
     } catch (error) {
       console.error("Failed to toggle fault:", error);
     }
+  };
+
+  const toggleCard = (cardId: string) => {
+    setExpandedCards((prev) => ({
+      ...prev,
+      [cardId]: !prev[cardId],
+    }));
   };
 
   return (
@@ -121,7 +162,7 @@ export default function ChaosPage() {
                   Disable the ability to add items to cart
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
                 <FaultToggle
                   faultName="disableAddToCart"
                   isEnabled={faults.disableAddToCart}
@@ -129,6 +170,39 @@ export default function ChaosPage() {
                     handleToggle("disableAddToCart", enabled)
                   }
                 />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full flex items-center justify-between"
+                  onClick={() => toggleCard("disableAddToCart")}
+                >
+                  Details
+                  {expandedCards["disableAddToCart"] ? (
+                    <ChevronUp className="h-4 w-4" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4" />
+                  )}
+                </Button>
+                {expandedCards["disableAddToCart"] && (
+                  <div className="pt-2 space-y-3">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-1">
+                        Repair URL:
+                      </p>
+                      <pre className="text-xs bg-muted/50 p-2 rounded-lg overflow-x-auto">
+                        {glitchDetails.disableAddToCart.repairUrl}
+                      </pre>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-1">
+                        Sample Curl Command:
+                      </p>
+                      <pre className="text-xs bg-muted/50 p-2 rounded-lg overflow-x-auto">
+                        {glitchDetails.disableAddToCart.curlCommand}
+                      </pre>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -142,12 +216,45 @@ export default function ChaosPage() {
                   Force all pagination requests to return page 1
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
                 <FaultToggle
                   faultName="jamPagination"
                   isEnabled={faults.jamPagination}
                   onToggle={(enabled) => handleToggle("jamPagination", enabled)}
                 />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full flex items-center justify-between"
+                  onClick={() => toggleCard("jamPagination")}
+                >
+                  Details
+                  {expandedCards["jamPagination"] ? (
+                    <ChevronUp className="h-4 w-4" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4" />
+                  )}
+                </Button>
+                {expandedCards["jamPagination"] && (
+                  <div className="pt-2 space-y-3">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-1">
+                        Repair URL:
+                      </p>
+                      <pre className="text-xs bg-muted/50 p-2 rounded-lg overflow-x-auto">
+                        {glitchDetails.jamPagination.repairUrl}
+                      </pre>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-1">
+                        Sample Curl Command:
+                      </p>
+                      <pre className="text-xs bg-muted/50 p-2 rounded-lg overflow-x-auto">
+                        {glitchDetails.jamPagination.curlCommand}
+                      </pre>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -161,7 +268,7 @@ export default function ChaosPage() {
                   Mark all products as out of stock
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
                 <FaultToggle
                   faultName="fakeOutOfStock"
                   isEnabled={faults.fakeOutOfStock}
@@ -169,6 +276,39 @@ export default function ChaosPage() {
                     handleToggle("fakeOutOfStock", enabled)
                   }
                 />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full flex items-center justify-between"
+                  onClick={() => toggleCard("fakeOutOfStock")}
+                >
+                  Details
+                  {expandedCards["fakeOutOfStock"] ? (
+                    <ChevronUp className="h-4 w-4" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4" />
+                  )}
+                </Button>
+                {expandedCards["fakeOutOfStock"] && (
+                  <div className="pt-2 space-y-3">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-1">
+                        Repair URL:
+                      </p>
+                      <pre className="text-xs bg-muted/50 p-2 rounded-lg overflow-x-auto">
+                        {glitchDetails.fakeOutOfStock.repairUrl}
+                      </pre>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-1">
+                        Sample Curl Command:
+                      </p>
+                      <pre className="text-xs bg-muted/50 p-2 rounded-lg overflow-x-auto">
+                        {glitchDetails.fakeOutOfStock.curlCommand}
+                      </pre>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
