@@ -292,7 +292,7 @@ export default function ChaosPage() {
               </CardContent>
             </Card>
 
-            <Card className="glass-effect border-2 border-purple-500/20">
+            {/* <Card className="glass-effect border-2 border-purple-500/20">
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="h-5 w-5 text-purple-400" />
@@ -359,7 +359,7 @@ export default function ChaosPage() {
                   </div>
                 )}
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
         )}
       </div>
