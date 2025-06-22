@@ -25,7 +25,7 @@ export async function getFaultStatus(): Promise<FaultStatus> {
       throw error;
     }
 
-    console.log("Fetched fault data:", data);
+    // console.log("Fetched fault data:", data);
 
     const faultMap = (data || []).reduce<Partial<Record<FaultName, boolean>>>(
       (acc, fault: FaultRecord) => ({
@@ -35,7 +35,7 @@ export async function getFaultStatus(): Promise<FaultStatus> {
       {}
     );
 
-    console.log("Processed fault map:", faultMap);
+    // console.log("Processed fault map:", faultMap);
 
     return {
       disableAddToCart: faultMap.disableAddToCart ?? false,
@@ -58,7 +58,7 @@ export async function setFaultStatus(
   isEnabled: boolean
 ): Promise<FaultStatus> {
   try {
-    console.log(`Updating fault ${name} to ${isEnabled}`);
+    // console.log(`Updating fault ${name} to ${isEnabled}`);
 
     // First verify the fault exists
     const { data: existingFault, error: checkError } = await supabase
@@ -72,7 +72,7 @@ export async function setFaultStatus(
       throw new Error(`Fault ${name} not found`);
     }
 
-    console.log("Existing fault state:", existingFault);
+    // console.log("Existing fault state:", existingFault);
 
     // Perform the update
     const { data, error } = await supabase
@@ -94,7 +94,7 @@ export async function setFaultStatus(
       throw new Error(`Failed to update fault ${name}`);
     }
 
-    console.log("Update response:", data);
+    // console.log("Update response:", data);
 
     // Fetch the latest state
     return getFaultStatus();

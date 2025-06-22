@@ -8,7 +8,7 @@ export async function POST(
 ) {
   try {
     const { faultName } = params;
-    console.log("API Route - Received request to disable fault:", faultName);
+    // console.log("API Route - Received request to disable fault:", faultName);
 
     // Validate fault name
     if (
@@ -16,16 +16,16 @@ export async function POST(
         faultName
       )
     ) {
-      console.log("API Route - Invalid fault name:", faultName);
+      // console.log("API Route - Invalid fault name:", faultName);
       return NextResponse.json(
         { error: "Invalid fault name" },
         { status: 400 }
       );
     }
 
-    console.log("API Route - Attempting to disable fault:", faultName);
+    // console.log("API Route - Attempting to disable fault:", faultName);
     const updatedFaults = await setFaultStatus(faultName as FaultName, false);
-    console.log("API Route - Successfully updated faults:", updatedFaults);
+    // console.log("API Route - Successfully updated faults:", updatedFaults);
 
     return NextResponse.json({
       message: `${faultName} fault disabled`,

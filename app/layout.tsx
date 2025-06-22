@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import { CartProvider } from "@/components/cart-provider";
 import { Toaster } from "@/components/ui/toaster";
 import GlitchSidebar from "@/components/glitch-sidebar";
+import CartSidebar from "@/components/cart-sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,8 +26,8 @@ export default function RootLayout({
         <CartProvider>
           <div className="min-h-screen flex flex-col">
             <Header />
-            <main className="flex-1 container mx-auto px-4 py-8">
-              {children}
+            <main className="flex-1 relative">
+              <div className="container mx-auto px-4 py-8">{children}</div>
             </main>
             <footer className="py-6">
               <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
@@ -34,6 +35,7 @@ export default function RootLayout({
               </div>
             </footer>
           </div>
+          <CartSidebar />
           <GlitchSidebar />
           <Toaster />
         </CartProvider>

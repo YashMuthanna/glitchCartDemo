@@ -10,7 +10,7 @@ import { useCart } from "@/components/cart-provider";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { items } = useCart();
+  const { items, openCart } = useCart();
 
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
 
@@ -51,20 +51,19 @@ export default function Header() {
             </div>
 
             <div className="flex items-center gap-4">
-              <Link href="/cart">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="relative glass-effect hover:bg-white/90"
-                >
-                  <ShoppingCart className="h-5 w-5" />
-                  {totalItems > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                      {totalItems}
-                    </span>
-                  )}
-                </Button>
-              </Link>
+              <Button
+                variant="outline"
+                size="icon"
+                className="relative glass-effect hover:bg-white/90"
+                onClick={openCart}
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </Button>
 
               <Button
                 variant="ghost"

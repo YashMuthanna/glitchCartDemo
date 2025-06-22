@@ -23,23 +23,27 @@ import { Button } from "@/components/ui/button";
 interface GlitchDetails {
   repairUrl: string;
   curlCommand: string;
+  monitorUrl: string;
 }
 
 const glitchDetails: Record<FaultName, GlitchDetails> = {
   disableAddToCart: {
     repairUrl: "/api/faults/disableAddToCart/disable",
     curlCommand:
-      "curl -X POST https://glitch-cart-demo.vercel.app/api/faults/disableAddToCart/disable",
+      "curl -X POST https://gc.alloi.ai/api/faults/disableAddToCart/disable",
+    monitorUrl: "/api/cart",
   },
   jamPagination: {
     repairUrl: "/api/faults/jamPagination/disable",
     curlCommand:
-      "curl -X POST https://glitch-cart-demo.vercel.app/api/faults/jamPagination/disable",
+      "curl -X POST https://gc.alloi.ai/api/faults/jamPagination/disable",
+    monitorUrl: "/api/products?page=2",
   },
   fakeOutOfStock: {
     repairUrl: "/api/faults/fakeOutOfStock/disable",
     curlCommand:
-      "curl -X POST https://glitch-cart-demo.vercel.app/api/faults/fakeOutOfStock/disable",
+      "curl -X POST https://gc.alloi.ai/api/faults/fakeOutOfStock/disable",
+    monitorUrl: "/api/products/1",
   },
 };
 
@@ -119,7 +123,7 @@ export default function ChaosPage() {
           </div>
           <div className="space-y-4">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-gradient leading-tight md:leading-tight pb-2">
-              Chaos Engineering Dashboard
+              Chaos Dashboard
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed pb-2">
               Toggle fault flags to simulate various error scenarios in the
@@ -187,6 +191,21 @@ export default function ChaosPage() {
                   <div className="pt-2 space-y-3">
                     <div>
                       <p className="text-sm font-medium text-muted-foreground mb-1">
+                        Monitor URL:
+                      </p>
+                      <pre className="text-xs bg-muted/50 p-2 rounded-lg overflow-x-auto">
+                        <a
+                          href={glitchDetails.disableAddToCart.monitorUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          {glitchDetails.disableAddToCart.monitorUrl}
+                        </a>
+                      </pre>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-1">
                         Repair URL:
                       </p>
                       <pre className="text-xs bg-muted/50 p-2 rounded-lg overflow-x-auto">
@@ -237,6 +256,21 @@ export default function ChaosPage() {
                 </Button>
                 {expandedCards["jamPagination"] && (
                   <div className="pt-2 space-y-3">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-1">
+                        Monitor URL:
+                      </p>
+                      <pre className="text-xs bg-muted/50 p-2 rounded-lg overflow-x-auto">
+                        <a
+                          href={glitchDetails.jamPagination.monitorUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          {glitchDetails.jamPagination.monitorUrl}
+                        </a>
+                      </pre>
+                    </div>
                     <div>
                       <p className="text-sm font-medium text-muted-foreground mb-1">
                         Repair URL:
@@ -291,6 +325,21 @@ export default function ChaosPage() {
                 </Button>
                 {expandedCards["fakeOutOfStock"] && (
                   <div className="pt-2 space-y-3">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-1">
+                        Monitor URL:
+                      </p>
+                      <pre className="text-xs bg-muted/50 p-2 rounded-lg overflow-x-auto">
+                        <a
+                          href={glitchDetails.fakeOutOfStock.monitorUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          {glitchDetails.fakeOutOfStock.monitorUrl}
+                        </a>
+                      </pre>
+                    </div>
                     <div>
                       <p className="text-sm font-medium text-muted-foreground mb-1">
                         Repair URL:

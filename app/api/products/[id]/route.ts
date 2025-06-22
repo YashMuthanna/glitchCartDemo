@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { isFaultEnabled } from "@/lib/faults";
 import { getProduct } from "@/lib/products";
+import { triggerFakeErrorLog } from "@/lib/logging";
 
 export async function GET(
   request: Request,
@@ -16,6 +17,13 @@ export async function GET(
     // Check if fakeOutOfStock fault is enabled
     const isOutOfStock = await isFaultEnabled("fakeOutOfStock");
     if (isOutOfStock) {
+      // Trigger a fake out of memory error log
+      await triggerFakeErrorLog(
+        "fakeOutOfStock",
+        "api-products-detail",
+        "app/api/products/[id]/route.ts"
+      );
+
       return NextResponse.json(
         {
           ...product,

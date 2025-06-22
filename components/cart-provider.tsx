@@ -1,84 +1,112 @@
-"use client"
+"use client";
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from "react";
 
 export interface CartItem {
-  id: string
-  name: string
-  price: number
-  imageUrl: string
-  quantity: number
+  id: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
 }
 
 interface CartContextType {
-  items: CartItem[]
-  addItem: (item: CartItem) => void
-  updateQuantity: (id: string, quantity: number) => void
-  removeItem: (id: string) => void
-  clearCart: () => void
+  items: CartItem[];
+  addItem: (item: CartItem) => void;
+  updateQuantity: (id: string, quantity: number) => void;
+  removeItem: (id: string) => void;
+  clearCart: () => void;
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
 }
 
-const CartContext = createContext<CartContextType | undefined>(undefined)
+const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([])
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const savedCart = localStorage.getItem("cart")
+    const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       try {
-        setItems(JSON.parse(savedCart))
+        setItems(JSON.parse(savedCart));
       } catch (error) {
-        console.error("Failed to parse cart from localStorage:", error)
+        console.error("Failed to parse cart from localStorage:", error);
       }
     }
-  }, [])
+  }, []);
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(items))
-  }, [items])
+    localStorage.setItem("cart", JSON.stringify(items));
+  }, [items]);
 
   const addItem = (newItem: CartItem) => {
     setItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex((item) => item.id === newItem.id)
+      const existingItemIndex = prevItems.findIndex(
+        (item) => item.id === newItem.id
+      );
 
       if (existingItemIndex >= 0) {
         // Update quantity if item already exists
-        const updatedItems = [...prevItems]
-        updatedItems[existingItemIndex].quantity += newItem.quantity
-        return updatedItems
+        const updatedItems = [...prevItems];
+        updatedItems[existingItemIndex].quantity += newItem.quantity;
+        return updatedItems;
       } else {
         // Add new item
-        return [...prevItems, newItem]
+        return [...prevItems, newItem];
       }
-    })
-  }
+    });
+  };
 
   const updateQuantity = (id: string, quantity: number) => {
-    setItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
-  }
+    setItems((prevItems) =>
+      prevItems.map((item) => (item.id === id ? { ...item, quantity } : item))
+    );
+  };
 
   const removeItem = (id: string) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id))
-  }
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
 
   const clearCart = () => {
-    setItems([])
-  }
+    setItems([]);
+  };
+
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
 
   return (
-    <CartContext.Provider value={{ items, addItem, updateQuantity, removeItem, clearCart }}>
+    <CartContext.Provider
+      value={{
+        items,
+        addItem,
+        updateQuantity,
+        removeItem,
+        clearCart,
+        isCartOpen,
+        openCart,
+        closeCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
-  )
+  );
 }
 
 export function useCart() {
-  const context = useContext(CartContext)
+  const context = useContext(CartContext);
   if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider")
+    throw new Error("useCart must be used within a CartProvider");
   }
-  return context
+  return context;
 }

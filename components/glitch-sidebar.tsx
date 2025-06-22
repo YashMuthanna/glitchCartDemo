@@ -69,7 +69,7 @@ export default function GlitchSidebar() {
       <div className="w-64 glass-effect border rounded-l-lg p-4">
         <div className="flex items-center gap-2 mb-4">
           <ZapOff className="h-5 w-5 text-destructive" />
-          <h2 className="font-semibold text-sm">Active Glitches</h2>
+          <h2 className="font-semibold text-sm">Active Chaos</h2>
         </div>
 
         {activeFaults.length > 0 ? (
@@ -86,7 +86,7 @@ export default function GlitchSidebar() {
             ))}
           </div>
         ) : (
-          <p className="text-sm text-muted-foreground">No active glitches</p>
+          <p className="text-sm text-muted-foreground">No active chaos</p>
         )}
       </div>
     </div>

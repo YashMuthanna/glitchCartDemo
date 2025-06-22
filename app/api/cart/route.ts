@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isFaultEnabled } from "@/lib/faults";
+import { triggerFakeErrorLog } from "@/lib/logging";
 
 export async function POST(request: Request) {
   try {
@@ -7,9 +8,16 @@ export async function POST(request: Request) {
     const isDisabled = await isFaultEnabled("disableAddToCart");
 
     if (isDisabled) {
+      // Trigger a fake database connection error log
+      await triggerFakeErrorLog(
+        "disableAddToCart",
+        "api-cart",
+        "app/api/cart/route.ts"
+      );
+
       return NextResponse.json(
         { error: "Add to cart functionality is currently disabled" },
-        { status: 500 }
+        { status: 503 }
       );
     }
 

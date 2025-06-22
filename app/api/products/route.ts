@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { isFaultEnabled } from "@/lib/faults";
 import { getProducts } from "@/lib/products";
+import { triggerFakeErrorLog } from "@/lib/logging";
 
 export async function GET(request: Request) {
   try {
@@ -10,6 +11,13 @@ export async function GET(request: Request) {
     // Check if jamPagination fault is enabled
     const isJammed = await isFaultEnabled("jamPagination");
     if (isJammed) {
+      // Trigger a fake API timeout error log
+      await triggerFakeErrorLog(
+        "jamPagination",
+        "api-products",
+        "app/api/products/route.ts"
+      );
+
       // Return a 503 Service Unavailable with a clear error message
       return NextResponse.json(
         {
