@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import { isFaultEnabled } from "@/lib/faults";
 import { getProduct } from "@/lib/products";
