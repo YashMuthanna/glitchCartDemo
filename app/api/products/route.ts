@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { isFaultEnabled } from "@/lib/faults";
 import { getProducts } from "@/lib/products";
-import { triggerFakeErrorLog } from "@/lib/logging";
+import { triggerFakeErrorLog, sendLogEntry } from "@/lib/logging";
 
 export async function GET(request: Request) {
   try {
@@ -43,6 +43,23 @@ export async function GET(request: Request) {
 
     const { products, totalPages } = await getProducts(page);
 
+    // Log successful product fetch
+    await sendLogEntry({
+      "@timestamp": new Date().toISOString(),
+      "log.level": "info",
+      service: { name: "api-products", version: "1.3.0" },
+      host: {
+        name: `vercel-instance-${Math.random().toString(36).substring(7)}`,
+      },
+      event: { dataset: "products", module: "products-handler" },
+      message: `Fetched products for page ${page}`,
+      http: {
+        request: { method: "GET", path: "/api/products" },
+        response: { status_code: 200, duration_ms: 0 },
+      },
+      metadata: { page, totalPages, count: products.length },
+    });
+
     return NextResponse.json({
       products,
       totalPages,
@@ -50,7 +67,26 @@ export async function GET(request: Request) {
       isJammed: false,
     });
   } catch (error) {
-    console.error("Failed to fetch products:", error);
+    // Log server error
+    await sendLogEntry({
+      "@timestamp": new Date().toISOString(),
+      "log.level": "error",
+      service: { name: "api-products", version: "1.3.0" },
+      host: {
+        name: `vercel-instance-${Math.random().toString(36).substring(7)}`,
+      },
+      event: { dataset: "products", module: "products-handler" },
+      message: "Failed to fetch products",
+      error: {
+        type: error instanceof Error ? error.name : "UnknownError",
+        message: error instanceof Error ? error.message : String(error),
+        stack_trace: error instanceof Error ? error.stack : undefined,
+      },
+      http: {
+        request: { method: "GET", path: "/api/products" },
+        response: { status_code: 500, duration_ms: 0 },
+      },
+    });
     return NextResponse.json(
       { error: "Failed to fetch products" },
       { status: 500 }

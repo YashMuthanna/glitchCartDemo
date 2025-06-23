@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { isFaultEnabled } from "@/lib/faults";
 import { getProduct } from "@/lib/products";
-import { triggerFakeErrorLog } from "@/lib/logging";
+import { triggerFakeErrorLog, sendLogEntry } from "@/lib/logging";
 
 export async function GET(
   request: Request,
@@ -11,6 +11,22 @@ export async function GET(
     const product = await getProduct(params.id);
 
     if (!product) {
+      // Log not found
+      await sendLogEntry({
+        "@timestamp": new Date().toISOString(),
+        "log.level": "warn",
+        service: { name: "api-products-detail", version: "1.3.0" },
+        host: {
+          name: `vercel-instance-${Math.random().toString(36).substring(7)}`,
+        },
+        event: { dataset: "products", module: "product-detail-handler" },
+        message: `Product not found (id=${params.id})`,
+        http: {
+          request: { method: "GET", path: `/api/products/${params.id}` },
+          response: { status_code: 404, duration_ms: 0 },
+        },
+        metadata: { id: params.id },
+      });
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
@@ -43,9 +59,46 @@ export async function GET(
       );
     }
 
+    // Log successful product detail fetch
+    await sendLogEntry({
+      "@timestamp": new Date().toISOString(),
+      "log.level": "info",
+      service: { name: "api-products-detail", version: "1.3.0" },
+      host: {
+        name: `vercel-instance-${Math.random().toString(36).substring(7)}`,
+      },
+      event: { dataset: "products", module: "product-detail-handler" },
+      message: `Fetched product detail (id=${params.id})`,
+      http: {
+        request: { method: "GET", path: `/api/products/${params.id}` },
+        response: { status_code: 200, duration_ms: 0 },
+      },
+      metadata: { id: params.id },
+    });
+
     return NextResponse.json(product);
   } catch (error) {
-    console.error("Failed to fetch product:", error);
+    // Log server error
+    await sendLogEntry({
+      "@timestamp": new Date().toISOString(),
+      "log.level": "error",
+      service: { name: "api-products-detail", version: "1.3.0" },
+      host: {
+        name: `vercel-instance-${Math.random().toString(36).substring(7)}`,
+      },
+      event: { dataset: "products", module: "product-detail-handler" },
+      message: "Failed to fetch product detail",
+      error: {
+        type: error instanceof Error ? error.name : "UnknownError",
+        message: error instanceof Error ? error.message : String(error),
+        stack_trace: error instanceof Error ? error.stack : undefined,
+      },
+      http: {
+        request: { method: "GET", path: `/api/products/${params.id}` },
+        response: { status_code: 500, duration_ms: 0 },
+      },
+      metadata: { id: params.id },
+    });
     return NextResponse.json(
       { error: "Failed to fetch product" },
       { status: 500 }
