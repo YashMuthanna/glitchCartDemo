@@ -1,0 +1,13 @@
+name: Trigger Regular Logs
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  send-regular-logs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger /api/regular-logs endpoint
+        run: |
+          curl -X POST https://gc.alloi.ai/api/regular-logs
