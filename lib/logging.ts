@@ -24,6 +24,35 @@ interface LogData {
   };
 }
 
+// Regular (non-error) log interface
+export interface RegularLogData {
+  "@timestamp": string;
+  "log.level": "info" | "debug";
+  service: {
+    name: string;
+    version: string;
+  };
+  host: {
+    name: string;
+  };
+  event: {
+    dataset: string;
+    module: string;
+  };
+  http?: {
+    request: {
+      method: "GET" | "POST" | "PUT" | "DELETE";
+      path: string;
+    };
+    response: {
+      status_code: number;
+      duration_ms: number;
+    };
+  };
+  message: string;
+  metadata?: Record<string, any>;
+}
+
 const ELASTICSEARCH_URL = process.env.ELASTICSEARCH_URL;
 const ELASTICSEARCH_API_KEY = process.env.ELASTICSEARCH_API_KEY;
 const ELASTICSEARCH_INDEX = process.env.ELASTICSEARCH_INDEX || "search-j1bc";
@@ -122,4 +151,41 @@ export async function triggerFakeErrorLog(
 ) {
   const logData = getLogTemplate(faultName, serviceName, module);
   await sendLog(logData);
+}
+
+export async function sendRegularLog(logData: RegularLogData) {
+  if (!ELASTICSEARCH_URL || !ELASTICSEARCH_API_KEY) {
+    console.error(
+      "Elasticsearch URL or API Key is not configured. Skipping log."
+    );
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${ELASTICSEARCH_URL}/${ELASTICSEARCH_INDEX}/_doc`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `ApiKey ${ELASTICSEARCH_API_KEY}`,
+        },
+        body: JSON.stringify(logData),
+      }
+    );
+
+    if (response.ok) {
+      console.log(
+        `✅ Successfully sent regular log to Elasticsearch: ${logData.message}`
+      );
+    } else {
+      const errorBody = await response.text();
+      console.error(
+        `Failed to send regular log to Elasticsearch. Status: ${response.status}`,
+        errorBody
+      );
+    }
+  } catch (error) {
+    console.error("Error sending regular log to Elasticsearch:", error);
+  }
 }
