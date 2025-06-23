@@ -176,7 +176,7 @@ export async function sendRegularLog(logData: RegularLogData) {
 
     if (response.ok) {
       console.log(
-        `✅ Successfully sent regular log to Elasticsearch: ${logData.message}`
+        `✅ Successfully sent regular log to Elasticsearch : ${logData.message}`
       );
     } else {
       const errorBody = await response.text();
